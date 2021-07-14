@@ -1,0 +1,15 @@
+{
+    "name": "one-time-pad",
+    "version": "1.0.0",
+    "description": "",
+    "main": "oneTimePad.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "jest": "^27.0.6"
+    }
+}
