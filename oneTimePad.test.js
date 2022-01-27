@@ -14,22 +14,23 @@ function makeRandString(length) {
 
 describe("basic encryption", () => {
     it("should work in the basic case", () => {
-        expect(encrypt("aaa", "bbb")).toEqual("ccc");
+        expect(encrypt("aaa", "bbb")).toEqual("bbb");
     });
     it("should work when wrapping occurs", () => {
-        expect(encrypt("bbb", "yyy")).toEqual("aaa");
-    });
-    it("should work when wrapping occurs 2", () => {
-        expect(encrypt("aaa", "yyy")).toEqual("zzz");
+        expect(encrypt("ccc", "yyy")).toEqual("aaa");
+        expect(encrypt("cat", "bhy")).toEqual("dhr");
+        expect(encrypt("hello", "xmckl")).toEqual("eqnvz");
     });
 });
 
 describe("basic decryption", () => {
     it("should work in the basic case", () => {
-        expect(decrypt("ccc", "bbb")).toEqual("aaa");
+        expect(decrypt("ccc", "bbb")).toEqual("bbb");
     });
     it("should work when wrapping occurs", () => {
-        expect(decrypt("aaa", "yyy")).toEqual("bbb");
+        expect(decrypt("aaa", "yyy")).toEqual("ccc");
+        expect(decrypt("dhr", "bhy")).toEqual("cat");
+        expect(decrypt("eqnvz", "xmckl")).toEqual("hello");
     });
 });
 
@@ -41,52 +42,4 @@ describe("random recovery", () => {
             expect(decrypt(encrypt(message, key), key)).toEqual(message);
         });
     }
-});
-
-describe("encryption validation", () => {
-    it("should error if lengths don't match", () => {
-        expect(() => encrypt("ab", "a")).toThrowError();
-    });
-    it("should error if message isn't lowercase", () => {
-        expect(() => encrypt("aB", "ab")).toThrowError();
-    });
-    it("should error if key isn't lowercase", () => {
-        expect(() => encrypt("ab", "aB")).toThrowError();
-    });
-    it("should error if message contains punctuation", () => {
-        expect(() => encrypt("a ", "ab")).toThrowError();
-    });
-    it("should error if key contains punctuation", () => {
-        expect(() => encrypt("ab", "a ")).toThrowError();
-    });
-    it("should error if message contains digits", () => {
-        expect(() => encrypt("a6", "ab")).toThrowError();
-    });
-    it("should error if key contains digits", () => {
-        expect(() => encrypt("ab", "a6")).toThrowError();
-    });
-});
-
-describe("decryption validation", () => {
-    it("should error if lengths don't match", () => {
-        expect(() => decrypt("ab", "a")).toThrowError();
-    });
-    it("should error if message isn't lowercase", () => {
-        expect(() => decrypt("aB", "ab")).toThrowError();
-    });
-    it("should error if key isn't lowercase", () => {
-        expect(() => decrypt("ab", "aB")).toThrowError();
-    });
-    it("should error if message contains punctuation", () => {
-        expect(() => decrypt("a ", "ab")).toThrowError();
-    });
-    it("should error if key contains punctuation", () => {
-        expect(() => decrypt("ab", "a ")).toThrowError();
-    });
-    it("should error if message contains digits", () => {
-        expect(() => decrypt("a6", "ab")).toThrowError();
-    });
-    it("should error if key contains digits", () => {
-        expect(() => decrypt("ab", "a6")).toThrowError();
-    });
 });
